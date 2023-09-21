@@ -33,18 +33,6 @@ const Home = () => {
   let timeout: NodeJS.Timeout | null = null;
   const emitTyping = (e: React.FormEvent<HTMLInputElement>) => {
     setText(e.currentTarget.value);
-
-    if (socket) {
-      socket.emit("typing", { isTyping: true });
-
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-
-      timeout = setTimeout(() => {
-        socket.emit("typing", { isTyping: false });
-      }, 2000);
-    }
   };
 
   const getAllMessages = () => {
