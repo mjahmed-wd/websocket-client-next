@@ -24,7 +24,7 @@ const Home = () => {
 
   const join = () => {
     if (socket) {
-      socket.emit("join", { name, room: roomId }, (data: IMessage) => {
+      socket.emit("join", { room: roomId }, (data: IMessage) => {
         getAllMessages();
       });
     }
@@ -52,18 +52,11 @@ const Home = () => {
       console.log("Connected to the server");
     });
 
-    // socketInstance.on("connection", () => {
-    //   console.log("A user connected");
-    //   if (socketInstance) {
-    //     // Join the "some-room" when a user connects.
-    //     socketInstance.emit("join", { room: "some-room" });
-    //   }
-    // });
-
     getAllMessages();
 
-    socketInstance.on("message", (data: IMessage[]) => {
-      console.log({ data });
+    socketInstance.on("message", (data: IMessage[], room: string) => {
+
+      console.log({ data, room });
       setMessages(data);
     });
 
